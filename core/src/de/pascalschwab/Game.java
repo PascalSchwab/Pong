@@ -1,11 +1,10 @@
 package de.pascalschwab;
 
 import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class Game extends ApplicationAdapter {
 	private static final float PADDING = 50f;
@@ -15,11 +14,18 @@ public class Game extends ApplicationAdapter {
 	private Player[] players;
 	private Ball ball;
 	private ShapeRenderer shapeRenderer;
+	private Scoreboard scoreboard;
+	private Stage uiStage;
 
 	@Override
 	public void create () {
+		uiStage = new Stage(new ScreenViewport());
+
 		shapeRenderer = new ShapeRenderer();
 		shapeRenderer.setAutoShapeType(true);
+
+		scoreboard = new Scoreboard(0,Gdx.graphics.getHeight()-PADDING-100);
+		uiStage.addActor(scoreboard.getLabel());
 
 		players = new Player[2];
 		players[0] = new Player(
@@ -42,6 +48,8 @@ public class Game extends ApplicationAdapter {
 		update();
 
 		ScreenUtils.clear(0, 0, 0, 1);
+		uiStage.act();
+		uiStage.draw();
 		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 		for(Player player : players){
 			player.draw(shapeRenderer);
@@ -74,11 +82,13 @@ public class Game extends ApplicationAdapter {
 		if(ball.getX() <= 0){
 			players[1].addScorePoint();
 			Gdx.app.log("Player 0", String.valueOf(players[1].getScore()));
+			scoreboard.updateScore(players);
 			reset();
 		}
 		else if(ball.getX() >= Gdx.graphics.getWidth()){
 			players[0].addScorePoint();
 			Gdx.app.log("Player 1", String.valueOf(players[0].getScore()));
+			scoreboard.updateScore(players);
 			reset();
 		}
 	}
@@ -114,6 +124,7 @@ public class Game extends ApplicationAdapter {
 			player.dispose();
 		}
 		ball.dispose();
+		scoreboard.dispose();
 	}
 
 	private void reset(){

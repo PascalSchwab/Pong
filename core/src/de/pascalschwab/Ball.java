@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 
 public class Ball extends Rectangle implements Disposable {
-    private static final float SPEED = 300f;
+    private static final float SPEED = 400f;
     private float dirX;
     private float dirY;
     public Ball(float x, float y, float width, float height) {
