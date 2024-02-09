@@ -121,9 +121,10 @@ public class Game extends ApplicationAdapter {
 	public void start(){
 		if (!started){
 			if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+				Gdx.app.log("Game", "Started");
 				ball.setDirection(-1, 0);
+				started = true;
 			}
-			started = true;
 		}
 	}
 
@@ -144,7 +145,7 @@ public class Game extends ApplicationAdapter {
 		players[1].setY((float) Gdx.graphics.getHeight()/2-PLAYER_HEIGHT/2);
 		ball.setX((float) Gdx.graphics.getWidth() /2-BALL_SIZE/2);
 		ball.setY((float) Gdx.graphics.getHeight() /2-BALL_SIZE/2);
-		ball.setDirection(-1, 0);
+		ball.setDirection(0, 0);
 		started = false;
 	}
 }
