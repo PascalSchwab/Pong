@@ -16,9 +16,13 @@ public class Game extends ApplicationAdapter {
 	private ShapeRenderer shapeRenderer;
 	private Scoreboard scoreboard;
 	private Stage uiStage;
+	private Client client;
 
 	@Override
 	public void create () {
+		client = new Client();
+		client.connect("localhost", 3000);
+
 		uiStage = new Stage(new ScreenViewport());
 
 		shapeRenderer = new ShapeRenderer();
@@ -125,6 +129,7 @@ public class Game extends ApplicationAdapter {
 		}
 		ball.dispose();
 		scoreboard.dispose();
+		client.dispose();
 	}
 
 	private void reset(){
