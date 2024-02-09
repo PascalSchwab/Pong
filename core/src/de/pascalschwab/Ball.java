@@ -13,7 +13,7 @@ public class Ball extends Rectangle implements Disposable {
     private float dirY;
     public Ball(float x, float y, float width, float height) {
         super(x,y,width,height);
-        this.setDirection(-1, 0);
+        this.setDirection(0, 0);
     }
 
     public void draw(ShapeRenderer renderer){
