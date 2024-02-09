@@ -11,6 +11,7 @@ public class Game extends ApplicationAdapter {
 	private static final float PLAYER_WIDTH = 20f;
 	private static final float PLAYER_HEIGHT = 100f;
 	private static final float BALL_SIZE = 20f;
+	private boolean started = false;
 	private Player[] players;
 	private Ball ball;
 	private ShapeRenderer shapeRenderer;
@@ -59,6 +60,7 @@ public class Game extends ApplicationAdapter {
 	}
 
 	private void update(){
+		start();
 		updatePlayers();
 		updateBall();
 	}
@@ -116,6 +118,14 @@ public class Game extends ApplicationAdapter {
 			}
 		}
 	}
+	public void start(){
+		if (!started){
+			if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+				ball.setDirection(-1, 0);
+			}
+			started = true;
+		}
+	}
 
 	@Override
 	public void dispose () {
@@ -135,5 +145,6 @@ public class Game extends ApplicationAdapter {
 		ball.setX((float) Gdx.graphics.getWidth() /2-BALL_SIZE/2);
 		ball.setY((float) Gdx.graphics.getHeight() /2-BALL_SIZE/2);
 		ball.setDirection(-1, 0);
+		started = false;
 	}
 }
